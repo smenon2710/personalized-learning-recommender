@@ -1,0 +1,29 @@
+# Virtual environment
+venv/
+.venv/ # Include both common virtual env names
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# API keys and sensitive credentials
+.env
+*key*.txt
+*secret*.txt
+
+# Log files
+logs/
+*.log
+
+# Reports/Generated Output
+reports/
+*.html
+
+# Gradio cache/temp files
+.gradio/
+*.temp.*
+gradio_temp_files/
+
+# Operating System files
+.DS_Store # macOS
+Thumbs.db # Windows
