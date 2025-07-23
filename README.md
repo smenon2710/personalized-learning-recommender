@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📚 Personalized Learning AI Recommender
 
 A sophisticated agentic AI application that helps users find personalized learning resources across the web. Powered by Anthropic's Claude LLM, it understands your learning goals and preferences to curate highly relevant content from various online sources.
@@ -114,3 +115,19 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 *Generated with 🧡 by an AI Coding Partner*
+=======
+---
+title: Personalized Learning Recommender Ai
+emoji: 🌍
+colorFrom: yellow
+colorTo: green
+sdk: gradio
+sdk_version: 5.38.0
+app_file: app.py
+pinned: false
+license: mit
+short_description: Learning Recommender
+---
+
+Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+>>>>>>> b455dc5ab859eced24b3660032be9d4d5e6f8d51
