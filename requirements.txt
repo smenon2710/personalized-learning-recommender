@@ -1,7 +1,10 @@
 # Core Libraries for the Recommender Agent
 requests~=2.32.3
 beautifulsoup4~=4.12.3
-duckduckgo-search~=5.3.0
+
+# Search Integration
+google-api-python-client~=2.0.0 # Use the version pip freeze gave you, or ~ for compatible
+# duckduckgo-search is no longer used, so remove it if it appears
 
 # LLM Integration
 anthropic==0.27.0 # Keep this, as it's a known stable version for many users

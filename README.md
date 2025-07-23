@@ -18,28 +18,24 @@ A sophisticated agentic AI application that helps users find personalized learni
 This project demonstrates key concepts of agentic AI and practical web development:
 
 * **Agentic Capabilities:**
-    * **Perception:** Intelligently performs web searches and scrapes diverse web content.
-    * **Reasoning & Planning:** Uses Anthropic's Claude LLM to understand user needs, classify resources, assess quality, and determine relevance. It plans a multi-step process from search to curated output.
-    * **Action:** Executes web requests, parses HTML, and generates a rich HTML report.
+    * **Intelligent Perception:** Proactively generates optimized Google Custom Search queries and performs an **LLM-powered initial reranking** of raw search results (titles/snippets) to efficiently identify the most promising links.
+    * **Deep Reasoning & Planning:** Uses Anthropic's Claude LLM for sophisticated understanding, including **categorizing resources, assessing relevance, skill level, and quality with a transparent AI reasoning explanation.** It plans a multi-step process from smart search to curated, structured output.
+    * **Action & Presentation:** Executes web requests, parses HTML, and generates a rich, categorized HTML report directly within the UI.
     * **Autonomy:** Operates autonomously from user input to final recommendations.
-* **Enhanced Accuracy with LLMs:** Leverages Anthropic Claude for deep semantic understanding of learning content, providing more precise recommendations than rule-based systems.
-* **Cost Efficiency & Performance:** Implements a local SQLite caching mechanism to minimize redundant web scraping and expensive LLM API calls.
-* **User-Friendly Interface:** Provides an interactive web UI using Gradio, making it easy for anyone to use without command-line knowledge.
-* **Production-Ready Practices:** Includes robust error handling, structured logging, environment variable management for API keys, and adherence to web scraping politeness.
+* **Enhanced Accuracy with LLMs:** Leverages Anthropic Claude's advanced semantic understanding for more precise recommendations, now with an **intelligent pre-filtering step** that reduces noise and cost.
+* **Cost Efficiency & Performance:** Implements a local SQLite caching mechanism to minimize redundant web scraping and expensive LLM API calls, further optimized by targeting detailed LLM analysis *only* on highly promising search results.
+* **User-Friendly Interface:** Provides an interactive web UI using Gradio, making it easy for anyone to use.
+* **Transparency & Trust:** Offers **AI-generated reasoning** for each recommendation, allowing users to understand *why* a resource was chosen, fostering trust and interpretability.
+* **Robustness & Production-Ready Practices:** Includes comprehensive error handling, structured logging, secure environment variable management for API keys, and adherence to web scraping politeness.
 
 ## 🚀 How It Works
 
 1.  **User Input:** You provide a learning goal (e.g., "Python for Data Science"), a preferred learning style (e.g., "video", "articles", "hands-on projects"), and your current skill level.
-2.  **Intelligent Query Generation:** An Anthropic Claude LLM analyzes your request and generates multiple optimized search queries to explore the web effectively.
-3.  **Web Search & Scraping:** The agent executes these queries using DuckDuckGo and then visits promising links to scrape detailed information (titles, descriptions, URLs).
-4.  **LLM-Powered Curation:** For each unique resource, the agent checks its local cache. If not found or expired, it sends the resource's metadata to the Claude LLM for a comprehensive assessment, including:
-    * Resource Type Classification (e.g., "course", "documentation")
-    * Relevance Score (1-5)
-    * Skill Level Match (e.g., "perfect", "good")
-    * Overall Quality Rating (e.g., "excellent", "average")
-    * A concise summary of the resource.
-5.  **Smart Ranking & Filtering:** A custom scoring algorithm combines the LLM's insights with your preferences to rank the resources. Low-scoring or irrelevant resources are filtered out.
-6.  **Interactive Report:** The top curated resources are presented in a beautifully formatted HTML report, displayed directly within the Gradio interface.
+2.  **Intelligent Query Generation:** An Anthropic Claude LLM analyzes your request and generates multiple optimized search queries to explore Google Custom Search effectively.
+3.  **Initial Search & LLM Reranking:** The agent executes these queries on Google Custom Search. It then uses the Claude LLM to rapidly assess the titles and snippets of the initial search results, **intelligently filtering down to only the most promising links.**
+4.  **Detailed Scraping & LLM Assessment:** Only the *highly promising* links are then visited to scrape detailed information. This extracted data is sent to the Claude LLM for a comprehensive assessment, including resource type classification, relevance, skill level, quality ratings, a concise summary, **and a transparent reasoning.**
+5.  **Smart Ranking & Categorization:** A custom scoring algorithm combines the LLM's insights with your preferences to rank the resources. The resources are then grouped into logical categories for clear presentation.
+6.  **Interactive Report:** The top curated resources are presented in a beautifully formatted, categorized HTML report, displayed directly within the Gradio interface.
 
 ## ⚙️ Local Setup and Running
 
@@ -49,6 +45,7 @@ Follow these steps to get the Personalized Learning AI Recommender running on yo
 
 * Python 3.8+
 * An Anthropic API Key (you can get one from the [Anthropic Console](https://console.anthropic.com/))
+* A Google Cloud Project with the Custom Search API enabled and a Programmable Search Engine configured (see [Google Custom Search API setup](https://developers.google.com/custom-search/v1/overview) for details).
 
 ### Installation
 
@@ -57,7 +54,7 @@ Follow these steps to get the Personalized Learning AI Recommender running on yo
     git clone [https://github.com/your-username/personalized-learning-recommender.git](https://github.com/your-username/personalized-learning-recommender.git)
     cd personalized-learning-recommender
     ```
-    (Replace `your-username/personalized-learning-recommender.git` with your actual GitHub repository URL after you push the code.)
+    (Replace `your-username/personalized-learning-recommender.git` with your actual GitHub repository URL.)
 
 2.  **Create a Python Virtual Environment:**
     It's highly recommended to use a virtual environment to manage dependencies.
@@ -86,13 +83,23 @@ Follow these steps to get the Personalized Learning AI Recommender running on yo
 
 ### Configuration
 
-1.  **Set up your Anthropic API Key:**
+1.  **Set up your API Keys:**
     Create a file named `.env` in the root directory of your project (the same folder where `app.py` is located).
-    Add your API key to this file:
+    Add your API keys to this file:
     ```
-    ANTHROPIC_API_KEY="your_actual_anthropic_api_key_here"
+    ANTHROPIC_API_KEY="your_anthropic_api_key_here"
+    GOOGLE_API_KEY="your_google_api_key_here"
+    GOOGLE_CSE_ID="your_google_custom_search_engine_id_here"
     ```
-    **Important:** Never share this `.env` file or your API key publicly. It's already included in `.gitignore` to prevent accidental commits.
+    **Important:** Never share this `.env` file or your API keys publicly. It's already included in `.gitignore` to prevent accidental commits.
+
+2.  **Database Cache Reset (Important for Schema Changes):**
+    If you've previously run the application, the `cache.db` file might have an older database schema. To ensure the new `category` and `reasoning` fields are correctly added, delete the old cache file:
+    ```bash
+    rm cache.db  # macOS/Linux
+    # del cache.db # Windows
+    ```
+    The `init_db()` function will recreate it with the correct schema when the app starts.
 
 ### Running the Application
 
@@ -101,7 +108,7 @@ Follow these steps to get the Personalized Learning AI Recommender running on yo
     ```bash
     python app.py
     ```
-2.  The application will start, and you'll see a local URL (e.g., `http://127.0.0.1:7860/`) and a temporary public shareable URL printed in your terminal. Open either of these in your web browser.
+2.  The application will start, and you'll see a local URL (e.g., `http://127.0.0.1:7874/`) and a temporary public shareable URL printed in your terminal. Open either of these in your web browser.
 
 ## 📂 Project Structure
 .
