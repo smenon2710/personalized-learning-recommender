@@ -1,8 +1,8 @@
 ---
 title: Personalized Learning AI Recommender
 emoji: 📚
-colorFrom: "#2C3E50" # Your header background color
-colorTo: "#3498DB"   # A complementary color, e.g., your link color
+colorFrom: "indigo" # Your header background color
+colorTo: "blue"   # A complementary color, e.g., your link color
 sdk: gradio
 sdk_version: "4.38.1" # Adjust this to your gradio version from requirements.txt if different
 app_file: app.py
