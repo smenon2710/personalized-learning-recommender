@@ -60,7 +60,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # --- Database Setup for Caching ---
-DATABASE_NAME = 'cache.db'
+DATABASE_NAME = 'cache_v2.db'
 CACHE_EXPIRATION_DAYS = 7 # Cache entries expire after 7 days
 
 def init_db():
