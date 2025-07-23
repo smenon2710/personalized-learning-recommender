@@ -1,0 +1,11 @@
+# Core Libraries for the Recommender Agent
+requests~=2.32.3
+beautifulsoup4~=4.12.3
+duckduckgo-search~=5.3.0
+
+# LLM Integration
+anthropic~=0.28.0 # Use the version you installed, or ~ to allow minor updates
+python-dotenv~=1.0.1
+
+# User Interface
+gradio~=4.38.1 # Use the version you installed, or ~ to allow minor updates
