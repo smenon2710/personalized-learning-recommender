@@ -84,6 +84,8 @@ def init_db():
     conn.close()
     logger.info(f"Database '{DATABASE_NAME}' initialized.")
 
+init_db() # Initialize the database when the application starts
+
 def get_cached_resource(url):
     """Retrieves a resource from cache if it's not expired."""
     conn = sqlite3.connect(DATABASE_NAME)
@@ -867,6 +869,6 @@ iface = gr.Interface(
 
 if __name__ == "__main__":
     # Initialize the database when the application starts
-    init_db() 
+    #init_db() 
     logger.info("Launching Gradio application.")
     iface.launch(share=True, inbrowser=True)
