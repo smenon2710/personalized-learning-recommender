@@ -1,4 +1,14 @@
-<<<<<<< HEAD
+---
+title: Personalized Learning AI Recommender
+emoji: 📚
+colorFrom: "#2C3E50" # Your header background color
+colorTo: "#3498DB"   # A complementary color, e.g., your link color
+sdk: gradio
+sdk_version: "4.38.1" # Adjust this to your gradio version from requirements.txt if different
+app_file: app.py
+pinned: false
+---
+
 # 📚 Personalized Learning AI Recommender
 
 A sophisticated agentic AI application that helps users find personalized learning resources across the web. Powered by Anthropic's Claude LLM, it understands your learning goals and preferences to curate highly relevant content from various online sources.
@@ -115,19 +125,3 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 *Generated with 🧡 by an AI Coding Partner*
-=======
----
-title: Personalized Learning Recommender Ai
-emoji: 🌍
-colorFrom: yellow
-colorTo: green
-sdk: gradio
-sdk_version: 5.38.0
-app_file: app.py
-pinned: false
-license: mit
-short_description: Learning Recommender
----
-
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
->>>>>>> b455dc5ab859eced24b3660032be9d4d5e6f8d51
