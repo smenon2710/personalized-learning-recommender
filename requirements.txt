@@ -4,7 +4,9 @@ beautifulsoup4~=4.12.3
 duckduckgo-search~=5.3.0
 
 # LLM Integration
-anthropic>=0.23.0,<0.28.0 # Example: Use a version range where proxies argument is not an issue
+anthropic==0.27.0 # Keep this, as it's a known stable version for many users
+httpx==0.25.2     # Pin httpx to a version known to be compatible
+httpcore==1.0.2   # Pin httpcore (httpx dependency)
 python-dotenv~=1.0.1
 
 # User Interface
